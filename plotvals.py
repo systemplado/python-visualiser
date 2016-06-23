@@ -111,15 +111,26 @@ if __name__ == '__main__':
 		y_axis = fft_averages
 		"""Stuff for bar graph"""
 		width = 0.95
-		img = imread("download.png")
-		fig, ax = plt.subplots()
 
-		p1 = ax.bar(x_axis, y_axis, width, alpha=0.4, color='w', edgecolor='none')
+		# bargraph with image
+		img = plt.imread("download.png")
+		p1 = plt.bar(x_axis, y_axis, width, alpha=0.4, color='w', edgecolor='none')
+		x0,x1 = plt.xlim()
+		y0,y1 = plt.ylim()
+		plt.axis('off')
+		plt.imshow(img, extent=[x0, x1, y0, y1], aspect='auto')
 
-		x0,x1 = ax.get_xlim()
-		y0,y1 = ax.get_ylim()
-		ax.axis('off')
-		ax.imshow(img, extent=[x0, x1, y0, y1], aspect='auto')
+		# bargraph with image and subplots(?)
+		# img = imread("download.png")
+		# fig, ax = plt.subplots()
+		# ax.axis('off')
+		# p1 = ax.bar(x_axis, y_axis, width, alpha=0.4, color='red', edgecolor='none')
+		# x0,x1 = ax.get_xlim()
+		# y0,y1 = ax.get_ylim()
+		# ax.imshow(img, extent=[x0, x1, y0, y1], aspect='auto')
+
+		# Simple bargraph
+		# p1 = plt.bar(x_axis, y_axis, width, alpha=0.4, color='w')
 
 		"""End bar graph stuff"""
 		filename = str('frame_%05d' % offset) + '.png'
