@@ -8,6 +8,7 @@ import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pylab
 import matplotlib.pyplot as plt
+from scipy.misc import imread
 
 filename = sys.argv[1]
 
@@ -95,6 +96,7 @@ if __name__ == '__main__':
 			fft_averages.append(avg)
 
 	for offset in range(0, total_transforms):
+	# for offset in range(23, 30):
 		start = int(offset * sample_size)
 		end = int((offset * sample_size) + sample_size -1)
 
@@ -108,11 +110,20 @@ if __name__ == '__main__':
 		average_fft_bands(fft_data)
 		y_axis = fft_averages
 		"""Stuff for bar graph"""
-		width = 0.35
-		p1 = plt.bar(x_axis, y_axis, width, color='r')
+		width = 0.95
+		img = imread("download.png")
+		fig, ax = plt.subplots()
+
+		p1 = ax.bar(x_axis, y_axis, width, alpha=0.4, color='w', edgecolor='none')
+
+		x0,x1 = ax.get_xlim()
+		y0,y1 = ax.get_ylim()
+		ax.axis('off')
+		ax.imshow(img, extent=[x0, x1, y0, y1], aspect='auto')
+
 		"""End bar graph stuff"""
 		filename = str('frame_%05d' % offset) + '.png'
-		plt.savefig(filename, dpi=100)
+		plt.savefig(filename, dpi=100, transparent=True)
 		plt.close()
 	print "DONE!"
 
